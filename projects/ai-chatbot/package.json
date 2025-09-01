@@ -1,0 +1,23 @@
+{
+  "name": "@yourusername/ai-chatbot",
+  "version": "0.0.1",
+  "description": "A standalone Angular chatbot component for AI conversations",
+  "keywords": ["angular", "chatbot", "ai", "openai", "gpt"],
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/material": "^19.2.0",
+    "@angular/cdk": "^19.2.0",
+    "@angular/forms": "^19.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ai-chatbot"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}
