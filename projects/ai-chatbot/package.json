@@ -1,7 +1,7 @@
 {
   "name": "@caplipun/ai-chatbot",
   "version": "1.0.1",
-  "description": "A standalone Angular chatbot component for AI conversations",
+  "description": "A standalone Angular chatbot library for AI conversations",
   "keywords": [
     "angular",
     "chatbot",
