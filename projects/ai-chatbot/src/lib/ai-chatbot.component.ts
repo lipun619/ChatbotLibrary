@@ -20,41 +20,86 @@ import { ChatMessage } from './interfaces/chat-message.interface';
     MatIconModule
   ],
   template: `
-    <mat-card class="chat-container">
-      <mat-card-header>
-        <mat-card-title>{{ title }}</mat-card-title>
-      </mat-card-header>
-      
-      <mat-card-content class="chat-messages">
-        <div *ngFor="let message of messages" 
-             [ngClass]="{'user-message': message.role === 'user', 
-                        'bot-message': message.role === 'assistant'}"
-             class="message">
-          <p>{{ message.content }}</p>
-          <small>{{ message.timestamp | date:'short' }}</small>
-        </div>
-      </mat-card-content>
+    <div class="chat-widget" [class.minimized]="isMinimized">
+      <!-- Chat bubble button -->
+      <button mat-fab color="primary" 
+              class="chat-bubble" 
+              (click)="toggleChat()"
+              *ngIf="isMinimized">
+        <mat-icon>chat</mat-icon>
+      </button>
 
-      <mat-card-actions class="chat-input">
-        <mat-form-field appearance="outline" class="input-field">
-          <input matInput 
-                 [(ngModel)]="currentMessage" 
-                 placeholder="Type your message..."
-                 (keyup.enter)="sendMessage()">
-        </mat-form-field>
-        <button mat-icon-button color="primary" (click)="sendMessage()">
-          <mat-icon>send</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
+      <!-- Full chat window -->
+      <mat-card class="chat-container" *ngIf="!isMinimized">
+        <mat-card-header>
+          <mat-card-title>{{ title }}</mat-card-title>
+          <button mat-icon-button class="minimize-button" (click)="toggleChat()">
+            <mat-icon>remove</mat-icon>
+          </button>
+        </mat-card-header>
+        
+        <mat-card-content class="chat-messages">
+          <div *ngFor="let message of messages" 
+               [ngClass]="{'user-message': message.role === 'user', 
+                          'bot-message': message.role === 'assistant'}"
+               class="message">
+            <p>{{ message.content }}</p>
+            <small>{{ message.timestamp | date:'short' }}</small>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="chat-input">
+          <mat-form-field appearance="outline" class="input-field">
+            <input matInput 
+                   [(ngModel)]="currentMessage" 
+                   placeholder="Type your message..."
+                   (keyup.enter)="sendMessage()">
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="sendMessage()">
+            <mat-icon>send</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   `,
   styles: [`
+    .chat-widget {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .chat-bubble {
+      transition: transform 0.3s ease;
+    }
+
+    .chat-bubble:hover {
+      transform: scale(1.1);
+    }
+
     .chat-container {
-      max-width: 600px;
-      margin: 20px auto;
-      height: 600px;
+      width: 350px;
+      height: 500px;
       display: flex;
       flex-direction: column;
+      margin: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .chat-container.minimized {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    .minimize-button {
+      margin-left: auto;
+    }
+
+    mat-card-header {
+      padding: 12px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }
 
     .chat-messages {
@@ -85,6 +130,7 @@ import { ChatMessage } from './interfaces/chat-message.interface';
       padding: 16px;
       gap: 8px;
       align-items: center;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
     }
 
     .input-field {
@@ -104,6 +150,7 @@ export class AiChatbotComponent {
 
   messages: ChatMessage[] = [];
   currentMessage: string = '';
+  isMinimized: boolean = true; // Start minimized
 
   constructor(private chatService: AiChatbotService) {}
 
@@ -135,5 +182,9 @@ export class AiChatbotComponent {
       content,
       timestamp: new Date()
     });
+  }
+
+  toggleChat() {
+    this.isMinimized = !this.isMinimized;
   }
 }
