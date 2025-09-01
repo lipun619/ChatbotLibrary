@@ -1,8 +1,15 @@
 {
-  "name": "@yourusername/ai-chatbot",
-  "version": "0.0.1",
+  "name": "@caplipun/ai-chatbot",
+  "version": "1.0.1",
   "description": "A standalone Angular chatbot component for AI conversations",
-  "keywords": ["angular", "chatbot", "ai", "openai", "gpt"],
+  "keywords": [
+    "angular",
+    "chatbot",
+    "ai",
+    "openai",
+    "gpt",
+    "material-design"
+  ],
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0",
@@ -16,8 +23,12 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ai-chatbot"
+    "url": "https://github.com/lipun619/ChatbotLibrary"
   },
-  "author": "Your Name",
-  "license": "MIT"
+  "author": "Lipun Patel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lipun619/ChatbotLibrary/issues"
+  },
+  "homepage": "https://github.com/lipun619/ChatbotLibrary#readme"
 }
